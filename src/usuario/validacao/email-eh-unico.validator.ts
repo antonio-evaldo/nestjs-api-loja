@@ -16,7 +16,6 @@ export class EmailEhUnicoValidator implements ValidatorConstraintInterface {
     const usuarioComEmailExiste = await this.usuarioRepository.existeComEmail(
       valor,
     );
-    console.log('busquei no banco de dados...');
 
     return !usuarioComEmailExiste;
   }
