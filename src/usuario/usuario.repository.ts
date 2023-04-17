@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UsuarioEntity } from './usuario.entity';
+import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
 
 @Injectable()
 export class UsuarioRepository {
@@ -21,10 +22,7 @@ export class UsuarioRepository {
     return possivelUsuario !== undefined;
   }
 
-  async atualiza(
-    id: string,
-    dadosDeAtualizacao: Partial<Omit<UsuarioEntity, 'id'>>,
-  ) {
+  async atualiza(id: string, dadosDeAtualizacao: AtualizaUsuarioDTO) {
     const usuario = this.buscaPorId(id);
 
     Object.entries(dadosDeAtualizacao).forEach(([chave, valor]) => {
