@@ -25,6 +25,24 @@ export class UsuarioRepository {
     id: string,
     dadosDeAtualizacao: Partial<Omit<UsuarioEntity, 'id'>>,
   ) {
+    const usuario = this.buscaPorId(id);
+
+    Object.entries(dadosDeAtualizacao).forEach(([chave, valor]) => {
+      usuario[chave] = valor;
+    });
+
+    return usuario;
+  }
+
+  async remove(id: string) {
+    const usuario = this.buscaPorId(id);
+
+    this.usuarios = this.usuarios.filter((usuario) => usuario.id !== id);
+
+    return usuario;
+  }
+
+  private buscaPorId(id: string) {
     const possivelUsuario = this.usuarios.find(
       (usuarioSalvo) => usuarioSalvo.id === id,
     );
@@ -32,10 +50,6 @@ export class UsuarioRepository {
     if (!possivelUsuario) {
       throw new Error('Usuário não existe.');
     }
-
-    Object.entries(dadosDeAtualizacao).forEach(([chave, valor]) => {
-      possivelUsuario[chave] = valor;
-    });
 
     return possivelUsuario;
   }
