@@ -32,12 +32,10 @@ export class UsuarioController {
   }
 
   @Post()
-  async criaUsuario(@Body() dadosUsuario: CriaUsuarioDTO) {
-    const usuarioEntity = new UsuarioEntity();
-    usuarioEntity.email = dadosUsuario.email;
-    usuarioEntity.senha = dadosUsuario.senha;
-    usuarioEntity.nome = dadosUsuario.nome;
-    usuarioEntity.id = uuid();
+  async criaUsuario(@Body() { nome, email, senha }: CriaUsuarioDTO) {
+    const usuarioEntity = new UsuarioEntity(uuid(), nome, email, senha);
+
+    this.usuarioRepository.salvar(usuarioEntity);
 
     this.usuarioRepository.salvar(usuarioEntity);
 

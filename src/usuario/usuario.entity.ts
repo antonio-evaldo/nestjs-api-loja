@@ -1,6 +1,8 @@
 export class UsuarioEntity {
-  id: string;
-  nome: string;
-  email: string;
-  senha: string;
+  constructor(
+    public id: string,
+    public nome: string,
+    public email: string,
+    public senha: string,
+  ) {}
 }
